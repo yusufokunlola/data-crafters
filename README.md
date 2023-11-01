@@ -5,8 +5,6 @@ This directory contains the premier project for the Hamoye Data Crafters team, F
 This Streamlit web application uses a Linear Regression model to predict the densities of health facilities such as Health posts, Health centers, Rural/District hospitals, Provincial hospitals, Specialized Hospitals, and Hospitals based on various features.
 
 ## Table of Contents
-- [Health Facilities Densities Prediction App](#health-facilities-densities-prediction-app)
-  - [Table of Contents](#table-of-contents)
   - [Demo](#demo)
   - [Prerequisites](#prerequisites)
   - [Usage](#usage)

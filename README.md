@@ -11,7 +11,7 @@ This Streamlit web application uses a Linear Regression model to predict the den
 
 ## Demo
 
-You can access the live demo of the app here: [Health Facilities Densities Prediction App](https://health-facilities.streamlit.app/)
+You can access the live demo of the app here: [Health Facilities Densities Prediction App](https://healthfacilities.streamlit.app/)
 
 ## Prerequisites
 
@@ -24,7 +24,7 @@ Before using the app locally, make sure you have the following installed:
 
 Follow these steps to use the app:
 
-1. Clone the GitHub repository to your local machine.
+1. Clone the GitHub repository on your local machine.
 
 ```bash
 git clone https://github.com/yusufokunlola/data-crafters.git

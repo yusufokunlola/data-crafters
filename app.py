@@ -74,7 +74,6 @@ def main():
     st.write('R-squared:', r2_score(y_test, y_pred))
 
     # Prediction
-    st.sidebar.subheader('Predicted Total Health Facilities Densities:')
     user_input = {
         'GDP': st.sidebar.number_input('GDP', min_value=float(df['GDP'].min()), max_value=float(df['GDP'].max())),
         'Population': st.sidebar.number_input('Population', min_value=float(df['Population'].min()), max_value=float(df['Population'].max())),

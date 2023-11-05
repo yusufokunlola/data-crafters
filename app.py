@@ -38,7 +38,7 @@ def main():
     st.write(f'### Number of Countries in Selected Region: {num_countries}')
    
     # Create tabs for different sections
-    section = st.selectbox("Select to preview the country list and respective data", ["Country List", "Country Data"])
+    section = st.selectbox("Select to preview the country list and region data", ["Country List", "Region Data"])
 
     # Display the list of countries in the selected region
     if section == "Country List" and num_countries > 0:

@@ -1,21 +1,21 @@
-# # import libraries
+# import libraries
 import streamlit as st
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
+import pickle
 
 # Load the dataset
 @st.cache_data
 def load_data():
-    url = 'model_data.csv'  # Replace with your dataset URL or file path
+    url = 'dataset/cleaned_WHO_Infrastructure.csv'  # Replace with your dataset URL or file path
     df = pd.read_csv(url)
     return df
 
 # The Main function for the Streamlit app
 def main():
-    st.markdown("<h1 style='text-align: center; color: blue;'>Health Facilities Densities Prediction App</h1>", unsafe_allow_html=True)
-    st.write("This app uses a Linear Regression model to predict the densities of health facilities such as Health posts, Health centers, Rural/District hospitals, Provincial hospitals, Specialized Hospitals and Hospitals based on other features.")
+    st.markdown("<h1 style='text-align: center; color: blue;'>Health Facilities Density Prediction App</h1>", unsafe_allow_html=True)
+    st.write("This app uses a Linear Regression model to predict the density of health facilities such as Health posts, Health centers, Rural/District hospitals, Provincial hospitals, Specialized Hospitals and Hospitals based on other features.")
 
     # Load the dataset
     df = load_data()
@@ -59,19 +59,15 @@ def main():
 
     # Split the dataset into training and testing sets
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+          
+    # create an instance of the Linear Regression and train on the train set
+    model = LinearRegression().fit(X_train, y_train)
+    
+    #  save pickle file
+    pickle.dump(model, open('model.pkl','wb'))
 
-    # Train a Linear Regression model
-    model = LinearRegression()
-    model.fit(X_train, y_train)
-
-    # Make predictions
-    y_pred = model.predict(X_test)
-
-    # Display the model's performance
-    st.write('Model Performance:')
-    st.write('Mean Absolute Error:', mean_absolute_error(y_test, y_pred))
-    st.write('Mean Squared Error:', mean_squared_error(y_test, y_pred))
-    st.write('R-squared:', r2_score(y_test, y_pred))
+    # load model
+    reg_model = pickle.load(open('model.pkl','rb'))
 
     # Prediction
     user_input = {
@@ -83,7 +79,7 @@ def main():
     }
 
     # Predict Total Health Facilities Densities for user input
-    predicted_value = model.predict([list(user_input.values())])[0]
+    predicted_value = reg_model.predict([list(user_input.values())])[0]
     predicted_text = f'<span style="color: blue ; font-weight: bold;">Predicted Total Health Facilities Densities:</span> {predicted_value:.2f}'
     st.sidebar.write(predicted_text, unsafe_allow_html=True)
 

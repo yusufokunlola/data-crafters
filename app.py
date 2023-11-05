@@ -48,8 +48,8 @@ def main():
         st.write('### No Countries Found in Selected Region')
 
     # Display the Country Data
-    if section == "Country Data":
-        st.write('### Country Data')
+    if section == "Region Data":
+        st.write('### Region Data')
         st.write(filtered_data)
 
     # Prepare the feature matrix (X) and target variable (y)

@@ -57,32 +57,35 @@ def main():
         feature_columns = ['GDP', 'Population', 'Health Expenditure', 'GDP Per Capita', 'Population Density']
         X = filtered_data[feature_columns]
         y = filtered_data['Total_hf_densities']
-
-        # Split the dataset into training and testing sets
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-            
-        # create an instance of the Linear Regression and train on the train set
-        model = LinearRegression().fit(X_train, y_train)
         
-        #  save pickle file
-        pickle.dump(model, open('model.pkl','wb'))
+        if X.shape[0] == 0:  # Check if there is no data for the selected year
+            st.error("Add more data for the year 2014 to generate predictions")
+        else:
+            # Split the dataset into training and testing sets
+            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-        # load model
-        reg_model = pickle.load(open('model.pkl','rb'))
+            # create an instance of the Linear Regression and train on the train set
+            model = LinearRegression().fit(X_train, y_train)
+          
+            #  save pickle file
+            pickle.dump(model, open('model.pkl','wb'))
 
-        # Prediction
-        user_input = {
-            'GDP': st.sidebar.number_input('GDP', min_value=float(df['GDP'].min()), max_value=float(df['GDP'].max())),
-            'Population': st.sidebar.number_input('Population', min_value=float(df['Population'].min()), max_value=float(df['Population'].max())),
-            'Health Expenditure': st.sidebar.number_input('Health Expenditure', min_value=float(df['Health Expenditure'].min()), max_value=float(df['Health Expenditure'].max())),
-            'GDP Per Capita': st.sidebar.number_input('GDP Per Capita', min_value=float(df['GDP Per Capita'].min()), max_value=float(df['GDP Per Capita'].max())),
-            'Population Density': st.sidebar.number_input('Population Density', min_value=float(df['Population Density'].min()), max_value=float(df['Population Density'].max()))
-        }
+            # load model
+            reg_model = pickle.load(open('model.pkl','rb'))
 
-        # Predict Total Health Facilities Densities for user input
-        predicted_value = reg_model.predict([list(user_input.values())])[0]
-        predicted_text = f'<span style="color: blue ; font-weight: bold;">Predicted Total Health Facilities Densities:</span> {predicted_value:.2f}'
-        st.sidebar.write(predicted_text, unsafe_allow_html=True)
+            # Prediction
+            user_input = {
+                'GDP': st.sidebar.number_input('GDP', min_value=float(df['GDP'].min()), max_value=float(df['GDP'].max())),
+                'Population': st.sidebar.number_input('Population', min_value=float(df['Population'].min()), max_value=float(df['Population'].max())),
+                'Health Expenditure': st.sidebar.number_input('Health Expenditure', min_value=float(df['Health Expenditure'].min()), max_value=float(df['Health Expenditure'].max())),
+                'GDP Per Capita': st.sidebar.number_input('GDP Per Capita', min_value=float(df['GDP Per Capita'].min()), max_value=float(df['GDP Per Capita'].max())),
+                'Population Density': st.sidebar.number_input('Population Density', min_value=float(df['Population Density'].min()), max_value=float(df['Population Density'].max()))
+            }
+
+            # Predict Total Health Facilities Densities for user input
+            predicted_value = reg_model.predict([list(user_input.values())])[0]
+            predicted_text = f'<span style="color: blue ; font-weight: bold;">Predicted Total Health Facilities Densities:</span> {predicted_value:.2f}'
+            st.sidebar.write(predicted_text, unsafe_allow_html=True)
     except ValueError as e:
 	    st.error("An error occurred: " + str(e))
 

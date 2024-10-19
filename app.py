@@ -14,7 +14,7 @@ def load_data():
 
 # The Main function for the Streamlit app
 def main():
-    st.markdown("<h1 style='text-align: center; color: blue;'>Health Facilities Density Prediction App</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center;'>Health Facilities Density Prediction App</h1>", unsafe_allow_html=True)
     st.write("This app uses a Linear Regression model to predict the density of health facilities such as Health posts, Health centers, Rural/District hospitals, Provincial hospitals, Specialized Hospitals and Hospitals based on other features.")
 
     # Load the dataset
@@ -84,7 +84,7 @@ def main():
 
             # Predict Total Health Facilities Densities for user input
             predicted_value = reg_model.predict([list(user_input.values())])[0]
-            predicted_text = f'<span style="color: blue ; font-weight: bold;">Predicted Total Health Facilities Densities:</span> {predicted_value:.2f}'
+            predicted_text = f'<span style="color:red ; font-weight: bold;">Predicted Total Health Facilities Densities:</span> {predicted_value:.2f}'
             st.sidebar.write(predicted_text, unsafe_allow_html=True)
     except ValueError as e:
 	    st.error("An error occurred: " + str(e))
